@@ -15,6 +15,6 @@ export class CreateResultDto {
   @IsNotEmpty()
   originalValue: string;
 
-  @IsNumber()
-  correctedValue?: number;
+  @IsString()
+  correctedValue?: string;
 }

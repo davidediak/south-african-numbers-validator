@@ -97,7 +97,7 @@ export class ResultsService {
 
   private validateNumber(
     numberAsString: string,
-  ): { outcome: Outcome; correctedValue?: number } {
+  ): { outcome: Outcome; correctedValue?: string } {
     const convertedNumber = +numberAsString;
 
     if (isNaN(convertedNumber)) {
@@ -108,7 +108,7 @@ export class ResultsService {
       if (validNumberFoundAsSubstring) {
         return {
           outcome: Outcome.Corrected,
-          correctedValue: +validNumberFoundAsSubstring,
+          correctedValue: validNumberFoundAsSubstring,
         };
       } else {
         return { outcome: Outcome.Rejected };

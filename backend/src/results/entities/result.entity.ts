@@ -14,6 +14,6 @@ export class ResultEntity {
   @Column('varchar')
   originalValue: string;
 
-  @Column('numeric', { nullable: true })
-  correctedValue?: number;
+  @Column('varchar', { nullable: true })
+  correctedValue?: string;
 }
