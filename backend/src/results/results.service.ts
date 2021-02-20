@@ -12,7 +12,11 @@ import { CreateResultDto } from './dto/create-result.dto';
 import { CsvDataDto } from './dto/csv-data.dto';
 import { CsvParserService } from 'src/results/csv-parser/csv-parser.service';
 import { ParsedData } from 'nest-csv-parser';
-import { CSV_FILE_PATH } from 'src/common/constants';
+import {
+  CSV_FILE_PATH,
+  FIND_VALID_NUMBER_IN_STRING_REGEX,
+  SOUTH_AFRICA_CONTRY_CODE,
+} from 'src/common/constants';
 import { Outcome } from 'src/common/interfaces';
 
 @Injectable()
@@ -72,9 +76,14 @@ export class ResultsService {
       for (const parsedDataLine of parsedData.list) {
         const originalId = parsedDataLine.id;
         const originalValue = parsedDataLine.sms_phone;
-        const outcome = this.validateNumber(originalValue);
+        const { outcome, correctedValue } = this.validateNumber(originalValue);
 
-        await this.create({ outcome, originalId, originalValue });
+        await this.create({
+          outcome,
+          originalId,
+          originalValue,
+          correctedValue,
+        });
       }
 
       return true;
@@ -86,11 +95,30 @@ export class ResultsService {
     }
   }
 
-  private validateNumber(number: string): Outcome {
-    if (isNaN(+number)) {
-      return Outcome.Rejected;
+  private validateNumber(
+    numberAsString: string,
+  ): { outcome: Outcome; correctedValue?: number } {
+    const convertedNumber = +numberAsString;
+
+    if (isNaN(convertedNumber)) {
+      const validNumberFoundAsSubstring = numberAsString
+        .match(FIND_VALID_NUMBER_IN_STRING_REGEX)
+        ?.join('');
+
+      if (validNumberFoundAsSubstring) {
+        return {
+          outcome: Outcome.Corrected,
+          correctedValue: +validNumberFoundAsSubstring,
+        };
+      } else {
+        return { outcome: Outcome.Rejected };
+      }
+    } else if (numberAsString.length !== 11) {
+      return { outcome: Outcome.Rejected };
+    } else if (numberAsString.substring(0, 2) !== SOUTH_AFRICA_CONTRY_CODE) {
+      return { outcome: Outcome.Rejected };
     } else {
-      return Outcome.Accepted;
+      return { outcome: Outcome.Accepted };
     }
   }
 }
