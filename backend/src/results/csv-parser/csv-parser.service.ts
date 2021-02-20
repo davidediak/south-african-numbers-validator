@@ -24,6 +24,7 @@ export class CsvParserService {
     return parsedData;
   }
 
+  /** Remove non UTF-8 chars from a string */
   private sanitizeSting(str: string): string {
     return str.replace(SANITIZE_REGEX, '');
   }

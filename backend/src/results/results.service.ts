@@ -47,6 +47,10 @@ export class ResultsService {
     await this.resultsRepository.delete(ResultId);
   }
 
+  public async truncate(): Promise<void> {
+    await this.resultsRepository.clear();
+  }
+
   public async parseDataFile(): Promise<ParsedData<CsvDataDto>> {
     try {
       const parsedData = await this.csvParserService.doParse(

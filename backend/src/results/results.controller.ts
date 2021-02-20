@@ -8,6 +8,7 @@ export class ResultsController {
 
   @Get('parse')
   async parseCsv() {
+    await this.resultsService.truncate();
     const parsedData = await this.resultsService.parseDataFile();
     return this.resultsService.createWithParsedData(parsedData);
   }
