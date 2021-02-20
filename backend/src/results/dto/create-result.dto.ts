@@ -15,5 +15,5 @@ export class CreateResultDto {
   originalValue: string;
 
   @IsNumber()
-  correctedValue: number;
+  correctedValue?: number;
 }

@@ -13,6 +13,6 @@ export class ResultEntity {
   @Column('varchar')
   originalValue: string;
 
-  @Column('numeric')
-  correctedValue: number;
+  @Column('numeric', { nullable: true })
+  correctedValue?: number;
 }

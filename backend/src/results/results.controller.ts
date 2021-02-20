@@ -1,4 +1,12 @@
-import { Controller, Get, Post, Body, Put, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Put,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { ResultsService } from './results.service';
 import { CreateResultDto } from './dto/create-result.dto';
 import { UpdateResultDto } from './dto/update-result.dto';
@@ -6,6 +14,12 @@ import { UpdateResultDto } from './dto/update-result.dto';
 @Controller('results')
 export class ResultsController {
   constructor(private readonly resultsService: ResultsService) {}
+
+  @Get('parse')
+  async parseCsv() {
+    const parsedData = await this.resultsService.parseDataFile();
+    return this.resultsService.createWithParsedData(parsedData);
+  }
 
   @Post()
   create(@Body() createResultDto: CreateResultDto) {
