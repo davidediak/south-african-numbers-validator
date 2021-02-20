@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import * as fs from 'fs';
 import { CsvParser, ParsedData } from 'nest-csv-parser';
+import { CSV_SEPARATOR, SANITIZE_REGEX } from 'src/common/constants';
 
 @Injectable()
 export class CsvParserService {
@@ -14,7 +15,7 @@ export class CsvParserService {
       null,
       null,
       {
-        separator: ',',
+        separator: CSV_SEPARATOR,
         mapHeaders: ({ header }) => this.sanitizeSting(header),
         mapValues: ({ value }) => this.sanitizeSting(value),
       },
@@ -24,7 +25,7 @@ export class CsvParserService {
   }
 
   private sanitizeSting(str: string): string {
-    return str.replace(/[^\x00-\x7F]/g, '');
+    return str.replace(SANITIZE_REGEX, '');
   }
 }
 

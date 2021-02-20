@@ -9,10 +9,11 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { ResultEntity } from 'src/results/entities/result.entity';
 import { ResultsRepository } from 'src/results/results.repository';
 import { CreateResultDto } from './dto/create-result.dto';
-import { UpdateResultDto } from './dto/update-result.dto';
 import { CsvDataDto } from './dto/csv-data.dto';
 import { CsvParserService } from 'src/results/csv-parser/csv-parser.service';
 import { ParsedData } from 'nest-csv-parser';
+import { CSV_FILE_PATH } from 'src/common/constants';
+import { Outcome } from 'src/common/interfaces';
 
 @Injectable()
 export class ResultsService {
@@ -42,18 +43,16 @@ export class ResultsService {
     return Result;
   }
 
-  public update(id: number, updateResultDto: UpdateResultDto) {
-    return `This action updates a #${id} result`;
-  }
-
   public async remove(ResultId: number): Promise<void> {
     await this.resultsRepository.delete(ResultId);
   }
 
   public async parseDataFile(): Promise<ParsedData<CsvDataDto>> {
     try {
-      const path = './data.csv';
-      const parsedData = await this.csvParserService.doParse(path, CsvDataDto);
+      const parsedData = await this.csvParserService.doParse(
+        CSV_FILE_PATH,
+        CsvDataDto,
+      );
 
       return parsedData;
     } catch (error) {
@@ -83,13 +82,11 @@ export class ResultsService {
     }
   }
 
-  private validateNumber(
-    number: string,
-  ): 'accepted' | 'rejected' | 'corrected' {
+  private validateNumber(number: string): Outcome {
     if (isNaN(+number)) {
-      return 'rejected';
+      return Outcome.Rejected;
     } else {
-      return 'accepted';
+      return Outcome.Accepted;
     }
   }
 }

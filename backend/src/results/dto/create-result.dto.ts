@@ -1,10 +1,11 @@
 import { IsString, IsNotEmpty, MaxLength, IsNumber } from 'class-validator';
+import { Outcome } from 'src/common/interfaces';
 
 export class CreateResultDto {
   @IsString()
   @IsNotEmpty()
   @MaxLength(20)
-  outcome: 'accepted' | 'rejected' | 'corrected';
+  outcome: Outcome;
 
   @IsString()
   @IsNotEmpty()
