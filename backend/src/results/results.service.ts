@@ -4,6 +4,7 @@ import {
   Injectable,
   NotFoundException,
   InternalServerErrorException,
+  NotAcceptableException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ResultEntity } from 'src/results/entities/result.entity';
@@ -16,6 +17,7 @@ import {
   CSV_FILE_PATH,
   FIND_VALID_NUMBER_IN_STRING_REGEX,
   SOUTH_AFRICA_CONTRY_CODE,
+  SOUTH_AFRICA_NUMBER_MAX_LENGTH,
 } from 'src/common/constants';
 import { Outcome } from 'src/common/interfaces';
 
@@ -45,6 +47,18 @@ export class ResultsService {
       throw new NotFoundException(`Result #${ResultId} not found`);
     }
     return Result;
+  }
+
+  public async filterByOutcome(outcome: Outcome): Promise<ResultEntity[]> {
+    const possibleOutcomes = Object.values(Outcome);
+
+    if (possibleOutcomes.includes(outcome)) {
+      return await this.resultsRepository.find({ where: { outcome } });
+    } else {
+      throw new NotAcceptableException(
+        `Provided outcome param is not valid. Please use one of these values: ${possibleOutcomes}`,
+      );
+    }
   }
 
   public async remove(ResultId: number): Promise<void> {
@@ -113,7 +127,7 @@ export class ResultsService {
       } else {
         return { outcome: Outcome.Rejected };
       }
-    } else if (numberAsString.length !== 11) {
+    } else if (numberAsString.length !== SOUTH_AFRICA_NUMBER_MAX_LENGTH) {
       return { outcome: Outcome.Rejected };
     } else if (numberAsString.substring(0, 2) !== SOUTH_AFRICA_CONTRY_CODE) {
       return { outcome: Outcome.Rejected };

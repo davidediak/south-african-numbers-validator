@@ -1,6 +1,7 @@
 import { Controller, Get, Post, Body, Param, Delete } from '@nestjs/common';
 import { ResultsService } from './results.service';
 import { CreateResultDto } from './dto/create-result.dto';
+import { Outcome } from 'src/common/interfaces';
 
 @Controller('results')
 export class ResultsController {
@@ -26,6 +27,11 @@ export class ResultsController {
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.resultsService.findOne(+id);
+  }
+
+  @Get('filter/outcome/:outcome')
+  filterByOutcome(@Param('outcome') outcome: Outcome) {
+    return this.resultsService.filterByOutcome(outcome);
   }
 
   @Delete(':id')
