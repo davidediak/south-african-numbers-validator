@@ -22,8 +22,10 @@ export class ResultService {
     );
   }
 
-  validateSingleNumber(numberToTest: string): Observable<Result> {
-    return this.httpClient.get<Result>(
+  validateSingleNumber(
+    numberToTest: string
+  ): Observable<Partial<Result> & { rejectionReason: string }> {
+    return this.httpClient.get<Partial<Result> & { rejectionReason: string }>(
       `${this.backendUrl}/results/validate/${numberToTest}`
     );
   }

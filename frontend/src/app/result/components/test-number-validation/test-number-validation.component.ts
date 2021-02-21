@@ -10,7 +10,7 @@ import { ResultService } from 'src/app/result/result.service';
 })
 export class TestNumberValidationComponent implements OnInit {
   public inputValue: string;
-  public result$: Observable<Result>;
+  public result$: Observable<Partial<Result> & { rejectionReason: string }>;
   constructor(private resultService: ResultService) {}
 
   ngOnInit(): void {}

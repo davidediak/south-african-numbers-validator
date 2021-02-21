@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import * as fs from 'fs';
 import { CsvParser, ParsedData } from 'nest-csv-parser';
 import { CSV_SEPARATOR, SANITIZE_REGEX } from 'src/common/constants';
-import { ReturnType } from 'src/common/util-types';
+import { ClassAsType } from 'src/common/util-types';
 
 @Injectable()
 export class CsvParserService {
@@ -10,7 +10,7 @@ export class CsvParserService {
 
   public async doParse<T>(filePath: string, Entity: T) {
     const stream = fs.createReadStream(filePath);
-    const parsedData: ParsedData<ReturnType<T>> = await this.csvParser.parse(
+    const parsedData: ParsedData<ClassAsType<T>> = await this.csvParser.parse(
       stream,
       Entity,
       null,
