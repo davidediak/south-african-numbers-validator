@@ -21,4 +21,10 @@ export class ResultService {
       `${this.backendUrl}/results/filter/outcome/${outcome}`
     );
   }
+
+  validateSingleNumber(numberToTest: string): Observable<Result> {
+    return this.httpClient.get<Result>(
+      `${this.backendUrl}/results/validate/${numberToTest}`
+    );
+  }
 }

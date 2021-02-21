@@ -6,6 +6,10 @@ export class Result {
   originalId: string;
   originalValue: string;
   correctedValue?: string;
+
+  constructor(result: Partial<Result>) {
+    Object.assign(this, result);
+  }
 }
 
 export const acceptedTableHeaders: (keyof Result)[] = [

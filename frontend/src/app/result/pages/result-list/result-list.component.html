@@ -1,5 +1,11 @@
 <div class="p-grid p-jc-center p-mt-6">
   <div class="p-col-8">
+    <app-test-number-validation></app-test-number-validation>
+  </div>
+</div>
+
+<div class="p-grid p-jc-center p-mt-6">
+  <div class="p-col-8">
     <app-result-table
       [results]="accepted$ | async"
       [headers]="acceptedTableHeaders"

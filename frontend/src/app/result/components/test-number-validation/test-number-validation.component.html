@@ -1,0 +1,56 @@
+<p-card>
+  <div class="p-grid">
+    <div class="p-col-12 p-grid p-jc-center">
+      <div class="p-col-10 p-grid p-jc-evenly">
+        <div class="p-col-9">
+          <input
+            type="text"
+            pInputText
+            placeholder="Number"
+            [(ngModel)]="inputValue"
+            [style]="{ width: '100%' }"
+          />
+        </div>
+        <div class="p-col-3">
+          <button
+            pButton
+            pRipple
+            [disabled]="!inputValue"
+            type="button"
+            label="Submit"
+            (click)="doValdiate()"
+          ></button>
+        </div>
+      </div>
+    </div>
+    <div class="p-col-12 p-grid p-jc-center">
+      <div class="p-col-6">
+        <ng-container *ngIf="result$ | async as result">
+          <div class="p-col-12 p-grid">
+            <div class="p-col-6">
+              <span style="font-weight: bold"> Outcome: </span>
+            </div>
+            <div class="p-col-6">
+              <span>
+                {{ result.outcome }}
+              </span>
+            </div>
+          </div>
+
+          <ng-container *ngIf="result?.correctedValue">
+            <div class="p-col-12 p-grid">
+              <div class="p-col-6">
+                <span style="font-weight: bold"> Corrected Number: </span>
+              </div>
+              <div class="p-col-6">
+                <span>
+                  {{ result.correctedValue }}
+                </span>
+              </div>
+            </div>
+          </ng-container>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</p-card>
