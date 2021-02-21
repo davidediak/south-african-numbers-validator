@@ -1,0 +1,5 @@
+<ng-container *ngIf="results$ | async as results">
+  <pre *ngFor="let result of results">
+    <p>{{result | json}}</p>    
+ </pre>
+</ng-container>
