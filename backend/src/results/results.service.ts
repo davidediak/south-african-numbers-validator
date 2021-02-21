@@ -17,9 +17,10 @@ import {
   CSV_FILE_PATH,
   FIND_VALID_NUMBER_IN_STRING_REGEX,
   SOUTH_AFRICA_CONTRY_CODE,
-  SOUTH_AFRICA_NUMBER_MAX_LENGTH,
+  SOUTH_AFRICA_NUMBER_LENGTH,
 } from 'src/common/constants';
-import { Outcome } from 'src/common/interfaces';
+import { Outcome, rejectionReasons } from 'src/common/interfaces';
+import { ValueOf } from 'src/common/util-types';
 
 @Injectable()
 export class ResultsService {
@@ -111,7 +112,11 @@ export class ResultsService {
 
   public validateNumber(
     numberAsString: string,
-  ): { outcome: Outcome; correctedValue?: string } {
+  ): {
+    outcome: Outcome;
+    correctedValue?: string;
+    rejectionReason?: ValueOf<typeof rejectionReasons>;
+  } {
     const convertedNumber = +numberAsString;
 
     if (isNaN(convertedNumber)) {
@@ -125,12 +130,21 @@ export class ResultsService {
           correctedValue: validNumberFoundAsSubstring,
         };
       } else {
-        return { outcome: Outcome.Rejected };
+        return {
+          outcome: Outcome.Rejected,
+          rejectionReason: rejectionReasons.NAN,
+        };
       }
-    } else if (numberAsString.length !== SOUTH_AFRICA_NUMBER_MAX_LENGTH) {
-      return { outcome: Outcome.Rejected };
+    } else if (numberAsString.length !== SOUTH_AFRICA_NUMBER_LENGTH) {
+      return {
+        outcome: Outcome.Rejected,
+        rejectionReason: rejectionReasons.WrongLength,
+      };
     } else if (numberAsString.substring(0, 2) !== SOUTH_AFRICA_CONTRY_CODE) {
-      return { outcome: Outcome.Rejected };
+      return {
+        outcome: Outcome.Rejected,
+        rejectionReason: rejectionReasons.WrongCountryCode,
+      };
     } else {
       return { outcome: Outcome.Accepted };
     }

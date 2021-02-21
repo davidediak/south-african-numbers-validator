@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import * as fs from 'fs';
 import { CsvParser, ParsedData } from 'nest-csv-parser';
 import { CSV_SEPARATOR, SANITIZE_REGEX } from 'src/common/constants';
+import { ReturnType } from 'src/common/util-types';
 
 @Injectable()
 export class CsvParserService {
@@ -29,5 +30,3 @@ export class CsvParserService {
     return str.replace(SANITIZE_REGEX, '');
   }
 }
-
-type ReturnType<T> = T extends new () => infer R ? R : never;
