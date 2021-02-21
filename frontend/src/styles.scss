@@ -131,3 +131,27 @@ table {
 body {
   word-break: break-all;
 }
+
+.accepted-table-header {
+  background: rgba(12, 235, 0, 0.36) !important;
+}
+
+.accepted-table-row {
+  background: rgba(6, 122, 0, 0.2) !important;
+}
+
+.rejected-table-header {
+  background: rgba(179, 0, 0, 0.35) !important;
+}
+
+.rejected-table-row {
+  background: rgba(179, 30, 0, 0.2) !important;
+}
+
+.corrected-table-header {
+  background: rgba(173, 179, 0, 0.36) !important;
+}
+
+.corrected-table-row {
+  background: rgba(173, 179, 0, 0.2) !important;
+}

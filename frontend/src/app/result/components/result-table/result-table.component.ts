@@ -9,6 +9,8 @@ import { Result } from 'src/app/result/models/result';
 export class ResultTableComponent implements OnInit {
   @Input() results: Result[];
   @Input() headers: string[];
+  @Input() headerClass: string;
+  @Input() rowClass: string;
 
   public paginator = true;
   public initalRows = 10;

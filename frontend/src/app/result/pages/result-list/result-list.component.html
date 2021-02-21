@@ -3,6 +3,8 @@
     <app-result-table
       [results]="accepted$ | async"
       [headers]="acceptedTableHeaders"
+      [headerClass]="acceptedTableHeaderClass"
+      [rowClass]="acceptedTableRowClass"
     ></app-result-table>
   </div>
 </div>
@@ -11,6 +13,8 @@
     <app-result-table
       [results]="rejected$ | async"
       [headers]="rejectedTableHeaders"
+      [headerClass]="rejectedTableHeaderClass"
+      [rowClass]="rejectedTableRowClass"
     ></app-result-table>
   </div>
 </div>
@@ -19,6 +23,8 @@
     <app-result-table
       [results]="corrected$ | async"
       [headers]="correctedTableHeaders"
+      [headerClass]="correctedTableHeaderClass"
+      [rowClass]="correctedTableRowClass"
     ></app-result-table>
   </div>
 </div>

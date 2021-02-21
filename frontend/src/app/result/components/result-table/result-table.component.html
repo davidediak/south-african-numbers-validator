@@ -7,12 +7,14 @@
 >
   <ng-template pTemplate="header">
     <tr>
-      <th *ngFor="let header of headers">{{ header }}</th>
+      <th [class]="headerClass" *ngFor="let header of headers">
+        {{ header }}
+      </th>
     </tr>
   </ng-template>
   <ng-template pTemplate="body" let-result>
     <tr>
-      <td *ngFor="let header of headers">
+      <td [class]="rowClass" *ngFor="let header of headers">
         {{ result[header] }}
       </td>
     </tr>

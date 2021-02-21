@@ -21,6 +21,13 @@ export class ResultListComponent implements OnInit {
   public rejectedTableHeaders = rejectedTableHeaders;
   public correctedTableHeaders = correctedTableHeaders;
 
+  public acceptedTableHeaderClass = 'accepted-table-header';
+  public acceptedTableRowClass = 'accepted-table-row';
+  public rejectedTableHeaderClass = 'rejected-table-header';
+  public rejectedTableRowClass = 'rejected-table-row';
+  public correctedTableHeaderClass = 'corrected-table-header';
+  public correctedTableRowClass = 'corrected-table-row';
+
   constructor(private resultService: ResultService) {}
 
   ngOnInit(): void {}
