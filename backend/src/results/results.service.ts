@@ -109,7 +109,7 @@ export class ResultsService {
     }
   }
 
-  private validateNumber(
+  public validateNumber(
     numberAsString: string,
   ): { outcome: Outcome; correctedValue?: string } {
     const convertedNumber = +numberAsString;

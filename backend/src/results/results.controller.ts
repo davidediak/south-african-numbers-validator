@@ -34,6 +34,11 @@ export class ResultsController {
     return this.resultsService.filterByOutcome(outcome);
   }
 
+  @Get('validate/:number')
+  validateSingleNumber(@Param('number') number: string) {
+    return this.resultsService.validateNumber(number);
+  }
+
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.resultsService.remove(+id);
