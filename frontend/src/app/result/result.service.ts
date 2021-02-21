@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Outcome } from 'src/app/result/models/outcome';
 import { Result } from 'src/app/result/models/result';
 
 @Injectable({
@@ -13,5 +14,11 @@ export class ResultService {
 
   getAll(): Observable<Result[]> {
     return this.httpClient.get<Result[]>(`${this.backendUrl}/results`);
+  }
+
+  getByOutcome(outcome: Outcome): Observable<Result[]> {
+    return this.httpClient.get<Result[]>(
+      `${this.backendUrl}/results/filter/outcome/${outcome}`
+    );
   }
 }

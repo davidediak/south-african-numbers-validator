@@ -7,3 +7,18 @@ export class Result {
   originalValue: string;
   correctedValue?: string;
 }
+
+export const acceptedTableHeaders: (keyof Result)[] = [
+  'originalId',
+  'originalValue',
+  'outcome',
+];
+
+export const rejectedTableHeaders: (keyof Result)[] = [...acceptedTableHeaders];
+
+export const correctedTableHeaders: (keyof Result)[] = [
+  'originalId',
+  'originalValue',
+  'correctedValue',
+  'outcome',
+];

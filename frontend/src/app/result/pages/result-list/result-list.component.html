@@ -1,5 +1,24 @@
-<ng-container *ngIf="results$ | async as results">
-  <pre *ngFor="let result of results">
-    <p>{{result | json}}</p>    
- </pre>
-</ng-container>
+<div class="p-grid p-jc-center">
+  <div class="p-col-6">
+    <p-table
+      [value]="accepted$ | async"
+      [paginator]="true"
+      [rows]="10"
+      [rowsPerPageOptions]="[10, { showAll: 'All' }]"
+      [showCurrentPageReport]="true"
+    >
+      <ng-template pTemplate="header">
+        <tr>
+          <th *ngFor="let header of acceptedTableHeaders">{{ header }}</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-result>
+        <tr>
+          <td *ngFor="let header of acceptedTableHeaders">
+            {{ result[header] }}
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</div>
