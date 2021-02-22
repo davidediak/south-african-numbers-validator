@@ -1,12 +1,15 @@
 {
-  "name": "south-african-numbers-validator",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC"
+    "name": "south-african-numbers-validator",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "start:db": "docker-compose -f backend/docker/docker-compose-db.yml up",
+        "start:be": "cd backend && npm i && npm run start:dev",
+        "start:fe": "cd frontend && npm i && npm run start",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC"
 }
