@@ -10,5 +10,6 @@ import { CsvParserService } from './csv-parser/csv-parser.service';
   imports: [CsvModule, TypeOrmModule.forFeature([ResultsRepository])],
   controllers: [ResultsController],
   providers: [ResultsService, CsvParserService],
+  exports: [CsvModule, ResultsService, CsvParserService],
 })
 export class ResultsModule {}
