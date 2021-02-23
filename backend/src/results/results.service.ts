@@ -119,22 +119,32 @@ export class ResultsService {
     const convertedNumber = +numberAsString;
 
     if (isNaN(convertedNumber)) {
-      const validNumberFoundAsSubstring = numberAsString
-        .match(FIND_VALID_NUMBER_IN_STRING_REGEX)
-        ?.join('');
+      return this._validateTypeNotNumber(numberAsString);
+    } else {
+      return this._validateTypeNumber(numberAsString);
+    }
+  }
 
-      if (validNumberFoundAsSubstring) {
-        return {
-          outcome: Outcome.Corrected,
-          correctedValue: validNumberFoundAsSubstring,
-        };
-      } else {
-        return {
-          outcome: Outcome.Rejected,
-          rejectionReason: rejectionReasons.NAN,
-        };
-      }
-    } else if (numberAsString.length !== SOUTH_AFRICA_NUMBER_LENGTH) {
+  private _validateTypeNotNumber(numberAsString: string) {
+    const validNumberFoundAsSubstring = numberAsString
+      .match(FIND_VALID_NUMBER_IN_STRING_REGEX)
+      ?.join('');
+
+    if (validNumberFoundAsSubstring) {
+      return {
+        outcome: Outcome.Corrected,
+        correctedValue: validNumberFoundAsSubstring,
+      };
+    } else {
+      return {
+        outcome: Outcome.Rejected,
+        rejectionReason: rejectionReasons.NAN,
+      };
+    }
+  }
+
+  private _validateTypeNumber(numberAsString: string) {
+    if (numberAsString.length !== SOUTH_AFRICA_NUMBER_LENGTH) {
       return {
         outcome: Outcome.Rejected,
         rejectionReason: rejectionReasons.WrongLength,
