@@ -7,7 +7,7 @@
         "start:db": "docker-compose -f backend/docker/docker-compose-db.yml up",
         "start:be": "cd backend && npm i && npm run start:dev",
         "start:fe": "cd frontend && npm i && npm run start",
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "test:be": "cd backend && npm run test && cd .."
     },
     "keywords": [],
     "author": "",
