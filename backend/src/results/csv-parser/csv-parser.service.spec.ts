@@ -37,4 +37,9 @@ describe('CsvParserService', () => {
 
     await expect(action()).rejects.toThrow();
   });
+
+  it('should sanitize a sting', async () => {
+    expect(service.sanitizeSting(`���test`)).toBe(`test`);
+    expect(service.sanitizeSting(`test`)).toBe(`test`);
+  });
 });
