@@ -34,6 +34,7 @@ describe('CsvParserService', () => {
     const action = async () => {
       await service.doParse('not/valid/path', CsvDataDto);
     };
-    expect(action()).rejects.toThrow(); // fix
+
+    await expect(action()).rejects.toThrow();
   });
 });

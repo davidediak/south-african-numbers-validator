@@ -1,7 +1,7 @@
-import { Controller, Get, Post, Body, Param, Delete } from '@nestjs/common';
-import { ResultsService } from './results.service';
-import { CreateResultDto } from './dto/create-result.dto';
+import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import { Outcome } from 'src/common/interfaces';
+import { CreateResultDto } from './dto/create-result.dto';
+import { ResultsService } from './results.service';
 
 @Controller('results')
 export class ResultsController {

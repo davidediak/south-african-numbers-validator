@@ -79,8 +79,7 @@ export class ResultsService {
 
       return parsedData;
     } catch (error) {
-      console.error(error);
-      throw new InternalServerErrorException('Error while parsing');
+      throw new InternalServerErrorException(error?.message ?? 'Generic Error');
     }
   }
 
@@ -88,7 +87,7 @@ export class ResultsService {
     parsedData: ParsedData<CsvDataDto>,
   ): Promise<boolean> {
     try {
-      for (const parsedDataLine of parsedData.list) {
+      for (const parsedDataLine of parsedData?.list) {
         const originalId = parsedDataLine.id;
         const originalValue = parsedDataLine.sms_phone;
         const { outcome, correctedValue } = this.validateNumber(originalValue);
