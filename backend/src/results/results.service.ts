@@ -126,6 +126,20 @@ export class ResultsService {
   }
 
   private _validateTypeNotNumber(numberAsString: string) {
+    const spaceRgx = /\s/g;
+    /* CHECK IF IT IS A VALID NUMBER BUT JUST WITH SPACES */
+    if (spaceRgx.test(numberAsString)) {
+      const numberAsStringWithoutSpaces = numberAsString.replace(spaceRgx, '');
+      const { outcome } = this._validateTypeNumber(numberAsStringWithoutSpaces);
+
+      if (outcome === Outcome.Accepted) {
+        return {
+          outcome: Outcome.Corrected,
+          correctedValue: numberAsStringWithoutSpaces,
+        };
+      }
+    }
+    /* CHECK IF IT CAN FIND A VALID NUMBER AS SUBSTRING */
     const validNumberFoundAsSubstring = numberAsString
       .match(FIND_VALID_NUMBER_IN_STRING_REGEX)
       ?.join('');
